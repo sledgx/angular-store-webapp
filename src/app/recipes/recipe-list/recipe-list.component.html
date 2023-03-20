@@ -6,19 +6,6 @@
 <hr>
 <div class="row">
     <div class="col-xs-12">
-        <div class="card text-bg-light my-3" style="cursor: pointer;" *ngFor="let recipe of recipes">
-            <div class="row g-0">
-                <div class="col-md-2 p-3">
-                    <img [src]="recipe.imagePath" alt="{{ recipe.name }}" class="img-fluid" style="max-width: 70px;">
-                </div>
-                <div class="col-md-10">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ recipe.name }}</h4>
-                        <p class="card-text">{{ recipe.description }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <app-recipe-item></app-recipe-item>
+        <app-recipe-item *ngFor="let recipe of recipes" [recipe]="recipe"></app-recipe-item>
     </div>
 </div>

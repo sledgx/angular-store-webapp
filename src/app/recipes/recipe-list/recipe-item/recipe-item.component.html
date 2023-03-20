@@ -1,1 +1,13 @@
-<p>recipe-item works!</p>
+<div class="card text-bg-light my-3" style="cursor: pointer;">
+    <div class="row g-0">
+        <div class="col-md-2 p-3">
+            <img [src]="recipe.imagePath" alt="{{ recipe.name }}" class="img-fluid" style="max-width: 70px;">
+        </div>
+        <div class="col-md-10">
+            <div class="card-body">
+                <h4 class="card-title">{{ recipe.name }}</h4>
+                <p class="card-text">{{ recipe.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
