@@ -25,7 +25,7 @@ export class RecipeListComponent {
       'This is simple a test',
       'https://cdn.pixabay.com/photo/2012/04/01/16/51/pizza-23477__340.png'
     )
-  ]
+  ];
 
   onRecipeSelected(recipe: Recipe) {
     this.recipeItemSelected.emit(recipe);
