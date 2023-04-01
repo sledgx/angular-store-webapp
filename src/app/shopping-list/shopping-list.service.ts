@@ -15,7 +15,19 @@ export class ShoppingListService {
     }
 
     addIngredient(ingredient: Ingredient) {
-        this.ingredients.push(ingredient);
+        const index = this.ingredients.findIndex(e => e.name === ingredient.name)
+        if (index > -1) {
+            this.ingredients[index].amount += ingredient.amount;
+        } else {
+            this.ingredients.push(ingredient);
+        }
+
         this.ingredientsChanged.emit(this.ingredients.slice());
+    }
+
+    addIngredients(ingredients: Ingredient[]) {
+        for (let ingredient of ingredients) {
+            this.addIngredient(ingredient);
+        }
     }
 }
