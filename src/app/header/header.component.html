@@ -17,15 +17,15 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown" appDropdown #r="appDropdownRef">
-                    <a id="navbarDropdown" href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Manage
                     </a>
                     <ul id="navbarDropdownMenu" class="dropdown-menu" [ngClass]="{'show':r.isOpen}" aria-labelledby="navbarDropdown">
                         <li>
-                            <a href="#" class="dropdown-item">Save Data</a>
+                            <a class="dropdown-item" style="cursor: pointer;" (click)="onSaveData()">Save Data</a>
                         </li>
                         <li>
-                            <a href="#" class="dropdown-item">Fetch Data</a>
+                            <a class="dropdown-item" style="cursor: pointer;" (click)="onFetchData()">Fetch Data</a>
                         </li>
                     </ul>
                 </li>
