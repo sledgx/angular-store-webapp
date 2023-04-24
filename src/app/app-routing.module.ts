@@ -7,6 +7,7 @@ import { RecipeEditComponent } from "./recipes/recipe-edit/recipe-edit.component
 import { RecipeDetailComponent } from "./recipes/recipe-detail/recipe-detail.component";
 import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
+import { RecipesResolverService } from "./recipes/recipes-resolver.service";
 
 const appRoutes: Routes = [
     {
@@ -28,11 +29,13 @@ const appRoutes: Routes = [
             },
             {
                 path: ':id',
-                component: RecipeDetailComponent
+                component: RecipeDetailComponent,
+                resolve: [RecipesResolverService]
             },
             {
                 path: ':id/edit',
-                component: RecipeEditComponent
+                component: RecipeEditComponent,
+                resolve: [RecipesResolverService]
             }
         ]
     },
