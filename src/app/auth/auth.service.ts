@@ -28,7 +28,7 @@ export class AuthService {
             returnSecureToken: true
         }).pipe(
             catchError(this.handleError),
-            tap(this.handleAuthentication)
+            tap(this.handleAuthentication.bind(this))
         );
     }
 
@@ -39,7 +39,7 @@ export class AuthService {
             returnSecureToken: true
         }).pipe(
             catchError(this.handleError),
-            tap(this.handleAuthentication)
+            tap(this.handleAuthentication.bind(this))
         );
     }
 
