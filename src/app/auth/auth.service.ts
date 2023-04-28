@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { catchError, throwError } from "rxjs";
+import { environment } from "src/environments/environment";
 
 export interface AuthResponseData {
     idToken: string;
@@ -13,7 +14,7 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    private url = 'https://identitytoolkit.googleapis.com/v1/accounts:{SERVICE}?key=AIzaSyBW3ZjkxPb7GwswzFcOewEhIWZWONi-hQg';
+    private url = 'https://identitytoolkit.googleapis.com/v1/accounts:{SERVICE}?key={KEY}';
 
     constructor(private http: HttpClient) { }
 
@@ -74,6 +75,8 @@ export class AuthService {
     }
 
     private getUrl(service: string) {
-        return this.url.replace('{SERVICE}', service);
+        return this.url
+            .replace('{SERVICE}', service)
+            .replace('{KEY}', environment.firebaseApiKey);
     }
 }
