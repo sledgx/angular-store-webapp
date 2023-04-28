@@ -124,6 +124,10 @@ export class AuthService {
             case 'INVALID_PASSWORD':
                 message = 'This password is not correct';
                 break;
+            
+            case 'TOO_MANY_ATTEMPTS_TRY_LATER':
+                message = 'Too many attempts. Try again later';
+                break;
 
             default:
                 message = 'An error occurred';
