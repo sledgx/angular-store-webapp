@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Subject, catchError, tap, throwError } from "rxjs";
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { BehaviorSubject, catchError, tap, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
 import { User } from "./user.model";
 
@@ -15,9 +15,9 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    user = new Subject<User>();
+    user = new BehaviorSubject<User>(null);
 
-    private url = 'https://identitytoolkit.googleapis.com/v1/accounts:{SERVICE}?key={KEY}';
+    private url = 'https://identitytoolkit.googleapis.com/v1/accounts:{SERVICE}';
 
     constructor(private http: HttpClient) { }
 
@@ -26,6 +26,8 @@ export class AuthService {
             email: email,
             password: password,
             returnSecureToken: true
+        }, {
+            params: new HttpParams().set('key', environment.firebaseApiKey)
         }).pipe(
             catchError(this.handleError),
             tap(this.handleAuthentication.bind(this))
@@ -37,6 +39,8 @@ export class AuthService {
             email: email,
             password: password,
             returnSecureToken: true
+        }, {
+            params: new HttpParams().set('key', environment.firebaseApiKey)
         }).pipe(
             catchError(this.handleError),
             tap(this.handleAuthentication.bind(this))
@@ -87,8 +91,6 @@ export class AuthService {
     }
 
     private getUrl(service: string) {
-        return this.url
-            .replace('{SERVICE}', service)
-            .replace('{KEY}', environment.firebaseApiKey);
+        return this.url.replace('{SERVICE}', service);
     }
 }
