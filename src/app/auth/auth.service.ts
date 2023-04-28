@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { catchError, throwError } from "rxjs";
+import { Subject, catchError, tap, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
+import { User } from "./user.model";
 
 export interface AuthResponseData {
     idToken: string;
@@ -14,6 +15,8 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+    user = new Subject<User>();
+
     private url = 'https://identitytoolkit.googleapis.com/v1/accounts:{SERVICE}?key={KEY}';
 
     constructor(private http: HttpClient) { }
@@ -24,7 +27,8 @@ export class AuthService {
             password: password,
             returnSecureToken: true
         }).pipe(
-            catchError(this.handleError)
+            catchError(this.handleError),
+            tap(this.handleAuthentication)
         );
     }
 
@@ -34,8 +38,16 @@ export class AuthService {
             password: password,
             returnSecureToken: true
         }).pipe(
-            catchError(this.handleError)
+            catchError(this.handleError),
+            tap(this.handleAuthentication)
         );
+    }
+
+    private handleAuthentication(response: AuthResponseData) {
+        const expireTime = new Date().getTime() + +response.expiresIn * 1000;
+        const expireDate = new Date(expireTime);
+        const user = new User(response.email, response.localId, response.idToken, expireDate);
+        this.user.next(user);
     }
 
     private handleError(response: HttpErrorResponse) {
