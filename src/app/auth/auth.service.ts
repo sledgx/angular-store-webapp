@@ -47,6 +47,10 @@ export class AuthService {
         );
     }
 
+    signOut() {
+        this.user.next(null);
+    }
+
     private handleAuthentication(response: AuthResponseData) {
         const expireTime = new Date().getTime() + +response.expiresIn * 1000;
         const expireDate = new Date(expireTime);
